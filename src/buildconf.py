@@ -9,6 +9,7 @@ import stat
 import shutil
 import json
 import subprocess
+from io import open
 
 from jinja2 import Environment, FileSystemLoader, contextfilter
 
@@ -66,8 +67,8 @@ jinja_env.tests['avail_bin'] = avail_bin
 
 def jinja_read(fname, variables):
     '''take a buffer, context variables, and produce a string'''
-    with open(fname) as buf:
-        content = buf.read().decode('utf-8')
+    with open(fname, encoding='utf-8') as buf:
+        content = buf.read()
         tmpl = jinja_env.from_string(content)
     return tmpl.render(**variables)
 
@@ -194,11 +195,11 @@ if __name__ == '__main__':
             dst = os.path.join(outdir, obj[:-6])
             processed = jinja_read(fname, variables)
             if os.path.exists(dst) and \
-                    processed == open(dst, 'r').read().decode('utf-8'):
+                    processed == open(dst, encoding='utf-8').read():
                 log.debug("%s not changed" % obj)
             else:
-                with open(dst, 'w') as out:
-                    out.write(processed.encode('utf-8'))
+                with open(dst, 'w', encoding='utf-8') as out:
+                    out.write(processed)
                     log.info("%s updated" % obj)
 
             if os.access(fname, os.X_OK):
