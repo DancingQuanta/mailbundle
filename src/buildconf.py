@@ -25,7 +25,7 @@ jinja_env.globals['gpg_valid'] = gpgvalid.valid_emails
 
 def avail_bin(progname):
     try:
-        devnull = open('/dev/null', 'w')
+        devnull = open(os.devnull, 'w')
         subprocess.check_call(['which', progname],
                               stdout=devnull, stderr=devnull)
         return True
