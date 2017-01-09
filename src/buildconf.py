@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 '''
 This is the main program you'll need.
 It will create a configuration from your sources

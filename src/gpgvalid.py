@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 from subprocess import check_output
 from email.utils import parseaddr
 
@@ -41,4 +41,4 @@ def valid_emails(min_validity):
 if __name__ == '__main__':
     ACCEPTED_VALIDITY = ALL_VALIDITY[ALL_VALIDITY.find('f'):]
     for address in valid_emails(ACCEPTED_VALIDITY):
-        print address
+        print(address)
