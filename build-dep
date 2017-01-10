@@ -10,8 +10,13 @@ pip="${ve}/bin/pip"
 cd "$base"
 git submodule init
 git submodule update
-virtualenv -p $(which python2) --no-site-packages "$ve"
-virtualenv -p $(which python3) --no-site-packages "$vethree"
+if which virtualenv &> /dev/null; then
+  virtualenv -p $(which python2) --no-site-packages "$ve"
+  virtualenv -p $(which python3) --no-site-packages "$vethree"
+elif which conda &> /dev/null; then
+  conda create -p "$ve" python=2.7
+  conda create -p "$vethree" python=3.5
+fi
 cd "dep/afew"
 "${pythree}" setup.py install
 cd "$base"
